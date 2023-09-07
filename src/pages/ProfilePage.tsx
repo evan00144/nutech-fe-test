@@ -8,7 +8,7 @@ import { FieldValues, useForm } from "react-hook-form";
 
 export default function ProfilePage() {
   const user = useSelector((state: RootState) => state.item.user);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit,setValue } = useForm();
   const dispatch = useDispatch();
   const [profile, setProfile] = useState<any>(null);
   const [isEdit, setIsEdit] = useState<any>(false);
@@ -31,10 +31,13 @@ export default function ProfilePage() {
 
     if (!user) {
       fetchDataAndUpdateProfile();
+    }else{
+      setValue('first_name',user?.first_name)
+      setValue('last_name',user?.last_name)
     }
-  }, [user]);
+  }, [setValue, user]);
 
-  const handleSubmitForm = async(data: FieldValues) => {
+  const handleSubmitForm = async (data: FieldValues) => {
     const params = {
       ...data,
     };
@@ -42,13 +45,13 @@ export default function ProfilePage() {
       const res = await fetchData(
         "https://take-home-test-api.nutech-integrasi.app/profile/update",
         {
-          method: "post",
+          method: "put",
           body: JSON.stringify(params),
         }
       );
       const data = await res.json();
-      console.log(data)
-      dispatch(setUser(data?.data))
+      console.log(data);
+      dispatch(setUser(data?.data));
     } catch (error) {
       console.error(error);
     }
@@ -129,7 +132,10 @@ export default function ProfilePage() {
         </Form.Group>
         {!isEdit ? (
           <Button
-            onClick={() => setIsEdit(true)}
+            onClick={(e) => {
+              e.preventDefault();
+              setIsEdit(true);
+            }}
             type={"button"}
             className="w-100 mb-4"
           >
