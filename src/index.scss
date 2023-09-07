@@ -1,0 +1,88 @@
+$primary: #f42619;
+$danger: #ff5630;
+$input-btn-padding-y: 0.75rem;
+$input-btn-padding-x: 0.75rem;
+@import "bootstrap/scss/bootstrap";
+
+.login-form-container {
+  padding: 0 7rem;
+}
+
+.btn-primary {
+  color: white;
+}
+
+.input-group-text {
+  background-color: transparent;
+  color: rgb(228, 228, 228);
+}
+
+.input-group {
+  .form-control {
+    border-left: 0;
+    &::placeholder {
+      color: rgb(228, 228, 228);
+    }
+  }
+}
+
+.alert {
+  padding: 0.5rem 1rem;
+  border: 0;
+}
+
+.mb-5 {
+  margin-bottom: 2.5rem !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+select {
+  &:focus {
+    box-shadow: none !important;
+    border-color: var(--bs-border-color) !important;
+  }
+}
+
+.profile-edit {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  bottom: 0;
+}
+
+.card-transaksi {
+  border-radius: 0.5rem;
+  border: 1px solid var(--bs-border-color);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  .jumlah {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: green;
+    &.red {
+      color: red;
+    }
+  }
+  .tanggal {
+    font-size: 0.8rem;
+    color: rgb(195, 195, 195);
+  }
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}

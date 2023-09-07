@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import AuthRouting from "./AuthRouting";
+import MainLayout from "./MainLayout";
+import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
+import PembelianPage from "./pages/PembelianPage";
+import TopUpPage from "./pages/TopUpPage";
+import TransactionPage from "./pages/TransactionPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <BrowserRouter>
+      <Routes>
+        <Route path="auth/*" element={<AuthRouting />} />
+        <Route
+          path="/*"
+          element={
+            <ProtectedRoute>
+              <MainLayout />
+            </ProtectedRoute>
+          }
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route path="" element={<Navigate to={"home"} />} />
+          <Route path="home" element={<HomePage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="pembelian" element={<PembelianPage />} />
+          <Route path="topup" element={<TopUpPage />} />
+          <Route path="transaksi" element={<TransactionPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
