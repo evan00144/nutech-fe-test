@@ -72,9 +72,9 @@ select {
     line-height: 1;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: green;
+    color: rgb(56, 188, 56);
     &.red {
-      color: red;
+      color: $primary;
     }
   }
   .tanggal {
