@@ -92,7 +92,7 @@ export default function AccountInfo() {
             Rp{" "}
             <span
               style={{
-                fontSize: "5rem",
+                fontSize: "2rem",
                 lineHeight: 0.2,
               }}
             >
