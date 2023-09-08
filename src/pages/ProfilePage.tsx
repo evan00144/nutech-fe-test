@@ -5,14 +5,29 @@ import { RootState } from "../redux";
 import { setUser } from "../redux/reducer";
 import { fetchData } from "../service/service";
 import { FieldValues, useForm } from "react-hook-form";
+import AlertBox from "../components/AlertBox";
 
 export default function ProfilePage() {
   const user = useSelector((state: RootState) => state.item.user);
-  const { register, handleSubmit,setValue } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const dispatch = useDispatch();
   const [profile, setProfile] = useState<any>(null);
   const [isEdit, setIsEdit] = useState<any>(false);
 
+  const [alert, setAlert] = useState({
+    show: false,
+    success: false,
+    message: "",
+  });
+
+  const handleExitAlert = () => {
+    setAlert((prev) => {
+      return {
+        ...prev,
+        show: false,
+      };
+    });
+  };
   useEffect(() => {
     const fetchDataAndUpdateProfile = async () => {
       try {
@@ -31,9 +46,9 @@ export default function ProfilePage() {
 
     if (!user) {
       fetchDataAndUpdateProfile();
-    }else{
-      setValue('first_name',user?.first_name)
-      setValue('last_name',user?.last_name)
+    } else {
+      setValue("first_name", user?.first_name);
+      setValue("last_name", user?.last_name);
     }
   }, [setValue, user]);
 
@@ -50,10 +65,56 @@ export default function ProfilePage() {
         }
       );
       const data = await res.json();
-      console.log(data);
-      dispatch(setUser(data?.data));
+      if (res.ok) {
+        setAlert((prev) => {
+          return {
+            ...prev,
+            show: true,
+            message: data?.message,
+            success: true,
+          };
+        });
+        dispatch(setUser(data?.data));
+        setIsEdit(false);
+        return;
+      }
+      setAlert((prev) => {
+        return {
+          ...prev,
+          show: true,
+          message: data?.message,
+        };
+      });
     } catch (error) {
       console.error(error);
+    } finally {
+      setTimeout(() => {
+        setAlert((prev) => {
+          return {
+            ...prev,
+            show: false,
+            success: false,
+          };
+        });
+      }, 1500);
+    }
+  };
+
+  
+
+  const handleChangeFile = async (e: any) => {
+    let formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    try {
+       await fetchData(
+        "https://take-home-test-api.nutech-integrasi.app/profile/image",
+        {
+          method: "put",
+          body: formData,
+        }
+      );
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -77,7 +138,8 @@ export default function ProfilePage() {
             width={128}
             src={process.env.PUBLIC_URL + "/assets/Profile Photo.png"}
           />
-          <div className="profile-edit">
+          <input type="file" hidden name="file" id="file" onChange={handleChangeFile} />
+          <label htmlFor="file" className="profile-edit cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -88,7 +150,7 @@ export default function ProfilePage() {
             >
               <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
             </svg>
-          </div>
+          </label>
         </div>
         <h1>
           {user?.first_name} {user?.last_name}
@@ -98,7 +160,6 @@ export default function ProfilePage() {
         <Form.Group className="mb-4" controlId="validationCustom01">
           <Form.Label>Email</Form.Label>
           <Form.Control
-            required
             disabled={true}
             type="text"
             placeholder="Email"
@@ -109,7 +170,6 @@ export default function ProfilePage() {
         <Form.Group className="mb-4" controlId="validationCustom01">
           <Form.Label>First name</Form.Label>
           <Form.Control
-            required
             {...register("first_name")}
             disabled={!isEdit}
             type="text"
@@ -121,7 +181,6 @@ export default function ProfilePage() {
         <Form.Group className="mb-4" controlId="validationCustom01">
           <Form.Label>Last name</Form.Label>
           <Form.Control
-            required
             {...register("last_name")}
             disabled={!isEdit}
             type="text"
@@ -152,6 +211,7 @@ export default function ProfilePage() {
           Log Out
         </Button>
       )}
+      <AlertBox alert={alert} handleExitAlert={handleExitAlert} />
     </>
   );
 }

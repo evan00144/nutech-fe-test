@@ -68,7 +68,7 @@ export default function AccountInfo() {
         />
         <h5 className="mb-1 fw-light">Selamat Datang,</h5>
         <h2>
-          {user?.first_name} {user?.last_name}
+          {user?.first_name} {user?.last_name} {user?.balance}
         </h2>
       </Col>
       <Col sm={7}>

@@ -25,7 +25,7 @@ function App() {
           <Route path="" element={<Navigate to={"home"} />} />
           <Route path="home" element={<HomePage />} />
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="pembelian" element={<PembelianPage />} />
+          <Route path="pembelian/:service_code" element={<PembelianPage />} />
           <Route path="topup" element={<TopUpPage />} />
           <Route path="transaksi" element={<TransactionPage />} />
         </Route>

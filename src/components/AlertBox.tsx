@@ -14,6 +14,10 @@ export default function AlertBox({ alert, handleExitAlert }: iAlert) {
           } text-${
             alert?.success ? "success" : "danger"
           } position-absolute  bottom-0 mb-5 w-75 `}
+          style={{
+            left:'50%',
+            transform:'translateX(-50%)'
+          }}
           role="alert"
         >
           {alert?.message}

@@ -3,6 +3,7 @@ import { RootState } from "../redux";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../service/service";
 import { setMenulayanan } from "../redux/reducer";
+import { Link } from "react-router-dom";
 
 export default function ListLayanan() {
   const menu = useSelector((state: RootState) => state.item.menuLayanan);
@@ -26,11 +27,11 @@ export default function ListLayanan() {
     }
   }, [dispatch, menu]);
 
-
   return (
     <div className="d-flex justify-content-between mb-4">
       {menu?.map((e, index) => (
-        <div className="text-center" key={index}>
+        <Link to={'/pembelian/'+e?.service_code} key={index}>
+        <div className="text-center" >
           <img src={e?.service_icon} alt="" />
           <div
             style={{
@@ -38,11 +39,13 @@ export default function ListLayanan() {
               marginTop: ".5rem",
               width: "10ch",
               lineHeight: "1.1",
+              color:'black'
             }}
-          >
+            >
             {e?.service_name}
           </div>
         </div>
+            </Link>
       ))}
     </div>
   );
