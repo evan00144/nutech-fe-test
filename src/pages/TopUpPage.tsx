@@ -83,6 +83,18 @@ export default function TopUpPage() {
         dispatch(setUser(data?.data));
         return;
       }
+
+      setSuccessFail({
+        success: false,
+        desc: 'Top Up Sebesar',
+        nominal: watchNominal,
+      });
+      setModalNotif((prev) => {
+        return {
+          ...prev,
+          show: true,
+        };
+      });
     } catch (e) {
       console.log(e);
     } finally {

@@ -12,13 +12,13 @@ export default function AuthLayout() {
   }, [authentication, navigate]);
 
   return (
-    <Row className="vh-100 overflow-hidden g-0">
+    <Row className="min-vh-100  g-0">
       <Col className="h-100" sm={6}>
         <Outlet />
       </Col>
       <Col className="h-100" sm={6}>
         <Image
-          className=" object-fit-cover h-100 w-100"
+          className=" object-fit-cover h-100 w-50 end-0 top-0 bottom-0 position-fixed"
           src={process.env.PUBLIC_URL + "/assets/ilustration/Login.png"}
           alt=""
         />
