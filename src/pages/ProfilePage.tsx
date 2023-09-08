@@ -6,11 +6,13 @@ import { setUser } from "../redux/reducer";
 import { fetchData } from "../service/service";
 import { FieldValues, useForm } from "react-hook-form";
 import AlertBox from "../components/AlertBox";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
   const user = useSelector((state: RootState) => state.item.user);
   const { register, handleSubmit, setValue } = useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState<any>(null);
   const [isEdit, setIsEdit] = useState<any>(false);
 
@@ -207,7 +209,10 @@ export default function ProfilePage() {
         )}
       </Form>
       {!isEdit && (
-        <Button variant="outline-primary" className="w-100">
+        <Button onClick={()=>{
+          localStorage.clear()
+          navigate('/auth/login')
+        }} variant="outline-primary" className="w-100">
           Log Out
         </Button>
       )}

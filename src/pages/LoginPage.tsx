@@ -83,8 +83,8 @@ export default function LoginPage() {
     }, 3000);
   };
   return (
-    <div className="d-flex flex-column h-100 align-items-center justify-content-center p-5 position-relative">
-      <div className="d-flex align-items-center gap-2 mb-5">
+    <div className="d-flex mt-5 flex-column h-100 align-items-center justify-content-center p-5 position-relative">
+      <div className="d-flex align-items-center gap-2 mb-5 mt-5">
         <img
           alt=""
           width={45}

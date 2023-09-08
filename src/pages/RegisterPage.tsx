@@ -154,7 +154,7 @@ export default function RegisterPage() {
 
       <p>
         sudah punya akun? login{" "}
-        <Link to="/auth/register" className="text-primary text-unstyled">
+        <Link to="/auth/login" className="text-primary text-unstyled">
           disini
         </Link>
       </p>
