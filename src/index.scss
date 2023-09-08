@@ -86,3 +86,10 @@ select {
 .cursor-pointer {
   cursor: pointer;
 }
+
+a{
+  color:black;
+  &.active{
+    color:$primary
+  }
+}
