@@ -3,7 +3,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { fetchData } from "../service/service";
 import { useState } from "react";
 import AlertBox from "../components/AlertBox";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 export default function LoginPage() {
@@ -119,9 +119,9 @@ export default function LoginPage() {
 
       <p>
         belum punya akun? registrasi{" "}
-        <a href="/" className="text-primary text-unstyled">
+        <Link to='/auth/register' className="text-primary text-unstyled">
           disini
-        </a>
+        </Link>
       </p>
       <AlertBox alert={alert} handleExitAlert={handleExitAlert} />
     </div>

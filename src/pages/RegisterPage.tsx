@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import { InputGroup, Button, Form } from "react-bootstrap";
 import { useForm, FieldValues } from "react-hook-form";
-import {  fetchData } from "../service/service";
+import { fetchData } from "../service/service";
 import AlertBox from "../components/AlertBox";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const [alert, setAlert] = useState({
     show: false,
     success: false,
     message: "",
   });
-
 
   const handleExitAlert = () => {
     setAlert((prev) => {
@@ -69,7 +65,7 @@ export default function RegisterPage() {
           };
         });
         setTimeout(() => {
-          navigate('/auth/login')
+          navigate("/auth/login");
         }, 1500);
         return;
       }
@@ -158,11 +154,11 @@ export default function RegisterPage() {
 
       <p>
         sudah punya akun? login{" "}
-        <a href="/" className="text-primary text-unstyled">
+        <Link to="/auth/register" className="text-primary text-unstyled">
           disini
-        </a>
+        </Link>
       </p>
-     <AlertBox alert={alert} handleExitAlert={handleExitAlert}/>
+      <AlertBox alert={alert} handleExitAlert={handleExitAlert} />
     </div>
   );
 }
